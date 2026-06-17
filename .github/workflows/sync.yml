@@ -33,11 +33,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
  
-      - name: Make script executable
-        run: chmod +x scripts/sync_from_classified.sh
- 
       - name: Run sync script
-        run: ./scripts/sync_from_classified.sh
+        run: bash scripts/sync_from_classified.sh
+ 
  
       - name: Push sync-data branch
         run: |
