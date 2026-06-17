@@ -1,0 +1,43 @@
+name: Sync from Classified Repository
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Classified repo
+        uses: actions/checkout@v4
+        with:
+          repository: wenmeijun417-gif/GitHub-Chinese-Top-Charts-Classified
+          path: GitHub-Chinese-Top-Charts-Classified
+
+      - name: Move Classified repo to parent directory
+        run: |
+          mv GitHub-Chinese-Top-Charts-Classified ../GitHub-Chinese-Top-Charts-Classified
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run sync script
+        run: |
+          chmod +x scripts/sync_from_classified.sh
+          ./scripts/sync_from_classified.sh
+
+      - name: Push sync-data branch
+        run: |
+          git push origin sync-data --force
