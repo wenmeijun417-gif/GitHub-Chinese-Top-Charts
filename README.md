@@ -1,1 +1,7 @@
-# GitHub-Chinese-Top-Charts
+# GitHub 中文热门项目排行榜
+
+最近更新时间为2026年06月17日
+
+## All Language
+
+(这部分内容会被自动脚本替换，先留空占位)
